@@ -2,6 +2,7 @@
 
 import { useCallback, useState, useTransition } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Card,
   CardHeader,
@@ -204,10 +205,12 @@ export const Post = ({ post, currentUserId }: Props) => {
             </span>
           )}
           {post.image && (
-            <img
+            <Image
               src={post.image}
               alt="Imagen del post"
               className="w-full max-h-80 object-cover rounded-md mt-4"
+              width={800} // Ajusta el ancho según sea necesario
+              height={600} // Ajusta la altura según sea necesario
             />
           )}
         </div>
@@ -229,7 +232,7 @@ export const Post = ({ post, currentUserId }: Props) => {
             <span className="text-xs">{post.likedIds.length}</span>
           </Button>
           <Link href={`/comments?postId=${post.id}`} passHref>
-            <Button variant="ghost" size="sm" as="a">
+            <Button variant="ghost" size="sm">
               <MessageCircleIcon className="h-5 w-5 mr-1" />
               <span className="text-xs">{post.comments.length}</span>
             </Button>
@@ -246,6 +249,7 @@ export const Post = ({ post, currentUserId }: Props) => {
                   })
                   .then(() => console.log("Contenido compartido"))
                   .catch(console.error);
+                // eslint-disable-next-line brace-style
               } else {
                 alert(
                   "La funcionalidad de compartir no es compatible en este navegador."

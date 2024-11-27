@@ -3,7 +3,7 @@ import { FeedWrapper } from "@/components/feed-wrapper";
 import { StickyWrapper } from "@/components/sticky-wrapper";
 import { TrendingList } from "@/components/trending-list";
 import { getPosts, getAuthUser } from "@/prisma/queries";
-import { Post } from "@/components/post";
+import { Post } from "@/components/post-temp";
 import { Category } from "@prisma/client";
 
 const categoryMap: { [key: string]: Category } = {
@@ -31,7 +31,7 @@ const TopicPage = async ({ params }: { params: { category?: string } }) => {
 
   const [user, posts] = await Promise.all([
     getAuthUser(),
-    getPosts({ where: { category } })
+    getPosts({ where: { category } }),
   ]);
 
   if (!user) {
@@ -49,7 +49,9 @@ const TopicPage = async ({ params }: { params: { category?: string } }) => {
             <Post key={post.id} post={post} currentUserId={user.authUserId} />
           ))}
           {posts.length === 0 && (
-            <p className="text-center text-gray-500">No hay posts en esta categoría aún.</p>
+            <p className="text-center text-gray-500">
+              No hay posts en esta categoría aún.
+            </p>
           )}
         </div>
       </FeedWrapper>
@@ -63,7 +65,7 @@ const TopicPage = async ({ params }: { params: { category?: string } }) => {
 export default TopicPage;
 
 export function generateStaticParams() {
-  return Object.keys(categoryMap).map(category => ({
+  return Object.keys(categoryMap).map((category) => ({
     category,
   }));
 }

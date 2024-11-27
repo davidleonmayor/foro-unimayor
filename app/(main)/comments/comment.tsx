@@ -15,13 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  HeartIcon,
-  MoreVertical,
-  Flag,
-  UserPlus,
-  VolumeX,
-} from "lucide-react";
+import { HeartIcon, MoreVertical, Flag, UserPlus, VolumeX } from "lucide-react";
 import { likeCommentToggle } from "@/actions/user-comment";
 import { toast } from "sonner";
 
@@ -63,7 +57,9 @@ const formatDate = (date: Date) => {
 };
 
 export const Comment = ({ comment, currentUserId }: CommentProps) => {
-  const [isLiked, setIsLiked] = useState(comment.likedIds?.includes(currentUserId) ?? false);
+  const [isLiked, setIsLiked] = useState(
+    comment.likedIds?.includes(currentUserId) ?? false
+  );
   const [likeCount, setLikeCount] = useState(comment.likedIds?.length ?? 0);
   const [isExpanded, setIsExpanded] = useState(false);
   const [pending, startTransition] = useTransition();
@@ -74,10 +70,10 @@ export const Comment = ({ comment, currentUserId }: CommentProps) => {
 
   const handleHeartClick = () => {
     startTransition(() => {
-      likeCommentToggle(comment)
+      likeCommentToggle(comment.id)
         .then(() => {
           setIsLiked((prev) => !prev);
-          setLikeCount((prev) => isLiked ? prev - 1 : prev + 1);
+          setLikeCount((prev) => (isLiked ? prev - 1 : prev + 1));
         })
         .catch(() => toast.error("Something went wrong. Please try again."));
     });
@@ -90,7 +86,9 @@ export const Comment = ({ comment, currentUserId }: CommentProps) => {
           <div className="flex gap-1 items-center">
             <Avatar>
               <AvatarImage
-                src={comment.user.image || "/placeholder.svg?height=40&width=40"}
+                src={
+                  comment.user.image || "/placeholder.svg?height=40&width=40"
+                }
                 alt={`@${comment.user.name}`}
               />
               <AvatarFallback>{getInitials(comment.user.name)}</AvatarFallback>

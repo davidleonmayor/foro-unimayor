@@ -10,8 +10,10 @@ async function cleanDatabase() {
     await prisma.user.deleteMany({});
 
     console.log("Database cleaned successfully");
+    // eslint-disable-next-line brace-style
   } catch (error) {
     console.error("Error cleaning database:", error);
+    // eslint-disable-next-line brace-style
   } finally {
     await prisma.$disconnect();
   }

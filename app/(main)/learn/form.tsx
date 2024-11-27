@@ -8,7 +8,7 @@ import { ImageUploader } from "./image-uploader";
 import { PollOptions } from "./poll-options";
 import { EmojiPicker } from "./emoji-picker";
 import { CategorySelect } from "./category-select";
-import { Image } from "lucide-react"; // Importa el ícono de imagen
+import { Image } from "lucide-react";
 
 type Category = "MATEMATICA" | "PROGRAMACION" | "SISTEMAS";
 
